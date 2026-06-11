@@ -1,4 +1,4 @@
-import random
+from random import choice
 
 def print_moves(moves: list):
     moves_string = " ".join(moves)
@@ -17,7 +17,7 @@ def generate_random_moves(length: int):
     }
     moves = []
     while len(moves) < length:
-        move = random.choice(possible_moves)
+        move = choice(possible_moves)
 
         if len(moves) >= 1:
             if move == moves[-1]:
@@ -30,116 +30,14 @@ def generate_random_moves(length: int):
         moves.append(move)
 
     for i in range(len(moves)):
-        moves[i] += random.choice(possible_modifications)
+        moves[i] += choice(possible_modifications)
 
     return moves
 
-def apply_moves(old_state, moves_list):
-    new_state = old_state.copy()
+def apply_moves(cube, moves_list):
+    new_state = cube.copy()
     for move in moves_list:
-        if move == "U":
-            new_state = u(new_state)
-        elif move == "U'":
-            new_state = u(u(u(new_state)))
-        elif move == "U2":
-            new_state = u(u(new_state))
-        elif move == "D":
-            new_state = d(new_state)
-        elif move == "D'":
-            new_state = d(d(d(new_state)))
-        elif move == "D2":
-            new_state = d(d(new_state))
-        elif move == "R":
-            new_state = r(new_state)
-        elif move == "R'":
-            new_state = r(r(r(new_state)))
-        elif move == "R2":
-            new_state = r(r(new_state))
-        elif move == "L":
-            new_state = l(new_state)
-        elif move == "L'":
-            new_state = l(l(l(new_state)))
-        elif move == "L2":
-            new_state = l(l(new_state))
-        elif move == "F":
-            new_state = f(new_state)
-        elif move == "F'":
-            new_state = f(f(f(new_state)))
-        elif move == "F2":
-            new_state = f(f(new_state))
-        elif move == "B":
-            new_state = b(new_state)
-        elif move == "B'":
-            new_state = b(b(b(new_state)))
-        elif move == "B2":
-            new_state = b(b(new_state))
-    return new_state
-
-def r(old_state):
-    new_state = old_state.copy()
-
-    temp = [new_state[2], new_state[5], new_state[8]]
-
-    new_state[2] = old_state[20]
-    new_state[5] = old_state[23]
-    new_state[8] = old_state[26]
-
-    new_state[20] = old_state[47]
-    new_state[23] = old_state[50]
-    new_state[26] = old_state[53]
-
-    new_state[47] = old_state[42]
-    new_state[50] = old_state[39]
-    new_state[53] = old_state[36]
-
-    new_state[42] = temp[0]
-    new_state[39] = temp[1]
-    new_state[36] = temp[2]
-
-    new_state[27] = old_state[33]
-    new_state[28] = old_state[30]
-    new_state[29] = old_state[27]
-
-    new_state[30] = old_state[34]
-    new_state[32] = old_state[28]
-
-    new_state[33] = old_state[35]
-    new_state[34] = old_state[32]
-    new_state[35] = old_state[29]
-    return new_state
-
-def l(old_state):
-    new_state = old_state.copy()
-
-    temp = [new_state[0], new_state[3], new_state[6]]
-
-    new_state[0] = old_state[44]
-    new_state[3] = old_state[41]
-    new_state[6] = old_state[38]
-
-    new_state[44] = old_state[45]
-    new_state[41] = old_state[48]
-    new_state[38] = old_state[51]
-
-    new_state[45] = old_state[18]
-    new_state[48] = old_state[21]
-    new_state[51] = old_state[24]
-
-    new_state[18] = temp[0]
-    new_state[21] = temp[1]
-    new_state[24] = temp[2]
-
-    new_state[9] = old_state[15]
-    new_state[10] = old_state[12]
-    new_state[11] = old_state[9]
-
-    new_state[12] = old_state[16]
-    new_state[14] = old_state[10]
-
-    new_state[15] = old_state[17]
-    new_state[16] = old_state[14]
-    new_state[17] = old_state[11]
-
+        new_state = MOVE_FUNCTIONS[move](new_state)
     return new_state
 
 def u(old_state):
@@ -210,6 +108,73 @@ def d(old_state):
 
     return new_state
 
+def r(old_state):
+    new_state = old_state.copy()
+
+    temp = [new_state[2], new_state[5], new_state[8]]
+
+    new_state[2] = old_state[20]
+    new_state[5] = old_state[23]
+    new_state[8] = old_state[26]
+
+    new_state[20] = old_state[47]
+    new_state[23] = old_state[50]
+    new_state[26] = old_state[53]
+
+    new_state[47] = old_state[42]
+    new_state[50] = old_state[39]
+    new_state[53] = old_state[36]
+
+    new_state[42] = temp[0]
+    new_state[39] = temp[1]
+    new_state[36] = temp[2]
+
+    new_state[27] = old_state[33]
+    new_state[28] = old_state[30]
+    new_state[29] = old_state[27]
+
+    new_state[30] = old_state[34]
+    new_state[32] = old_state[28]
+
+    new_state[33] = old_state[35]
+    new_state[34] = old_state[32]
+    new_state[35] = old_state[29]
+    return new_state
+
+def l(old_state):
+    new_state = old_state.copy()
+
+    temp = [new_state[0], new_state[3], new_state[6]]
+
+    new_state[0] = old_state[44]
+    new_state[3] = old_state[41]
+    new_state[6] = old_state[38]
+
+    new_state[44] = old_state[45]
+    new_state[41] = old_state[48]
+    new_state[38] = old_state[51]
+
+    new_state[45] = old_state[18]
+    new_state[48] = old_state[21]
+    new_state[51] = old_state[24]
+
+    new_state[18] = temp[0]
+    new_state[21] = temp[1]
+    new_state[24] = temp[2]
+
+    new_state[9] = old_state[15]
+    new_state[10] = old_state[12]
+    new_state[11] = old_state[9]
+
+    new_state[12] = old_state[16]
+    new_state[14] = old_state[10]
+
+    new_state[15] = old_state[17]
+    new_state[16] = old_state[14]
+    new_state[17] = old_state[11]
+
+    return new_state
+
 def f(old_state):
     new_state = old_state.copy()
 
@@ -277,3 +242,60 @@ def b(old_state):
     new_state[44] = old_state[38]
 
     return new_state
+
+def r_prime(old_state):
+    return r(r(r(old_state)))
+
+def r2(old_state):
+    return r(r(old_state))
+
+def l_prime(old_state):
+    return l(l(l(old_state)))
+
+def l2(old_state):
+    return l(l(old_state))
+
+def u_prime(old_state):
+    return u(u(u(old_state)))
+
+def u2(old_state):
+    return u(u(old_state))
+             
+def d_prime(old_state):
+    return d(d(d(old_state)))
+
+def d2(old_state):
+    return d(d(old_state))
+
+def f_prime(old_state):
+    return f(f(f(old_state)))
+
+def f2(old_state):
+    return f(f(old_state))
+
+def b_prime(old_state):
+    return b(b(b(old_state)))
+             
+def b2(old_state):
+    return b(b(old_state))
+
+MOVE_FUNCTIONS = {
+    "U": u,
+    "U'": u_prime,
+    "U2": u2,
+    "D": d,
+    "D'": d_prime,
+    "D2": d2,
+    "R": r,
+    "R'": r_prime,
+    "R2": r2,
+    "L": l,
+    "L'": l_prime,
+    "L2": l2,
+    "F": f,
+    "F'": f_prime,
+    "F2": f2,
+    "B": b,
+    "B'": b_prime,
+    "B2": b2
+}
