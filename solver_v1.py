@@ -1,16 +1,15 @@
-from cube import *
-from moves import *
-from time import *
-
-solved_cube = solved_cube
+from cube import is_solved
+from moves import generate_random_moves, apply_moves
+from time import perf_counter
+from constants import SOLVED_CUBE
 
 # Brute forces 6 random moves until it finds the solution. Takes a long time for any scrambles longer than 6 moves
-def solve_v1(cube):
+def solve_v1(cube, scramble_length):
     solution = ""
     attempts = 0
     start_time = perf_counter()
-    while cube != solved_cube:
-        solution = generate_random_moves(6)
+    while cube != SOLVED_CUBE:
+        solution = generate_random_moves(scramble_length)
         test_cube = apply_moves(cube.copy(), solution)
         attempts += 1
         if is_solved(test_cube):
