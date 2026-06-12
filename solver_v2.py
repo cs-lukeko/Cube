@@ -1,19 +1,19 @@
 from cube import is_solved
 from moves import apply_moves
 from time import perf_counter
-from constants import MOVES
+from constants import MOVES, AXES, GODS_NUMBER
 
 attempts = 0
 
 # Uses iteratively deepening depth-first search to find the solution in a systematic way rather than random selection of moves. Still takes a long time for scrambles of length 6 or greater.
 # Iterative Deepening (ID) = for each loop completed, the depth of search increases by 1
 # Depth-First Search (DFS) = explores the length of a branch before moving to the next - opposite of Breadth-First Search (BFS)
-def solve_v2(cube: list, max_depth: int):
+def solve_v2(cube: list):
     total_attempts = 0
     solution = []
     start_time = perf_counter()
 
-    for depth in range(1, max_depth + 1):
+    for depth in range(1, GODS_NUMBER + 1):
         solution, depth_attempts = depth_first_search(cube.copy(), depth, [])
         total_attempts += depth_attempts
         if solution is not None:
@@ -33,6 +33,14 @@ def depth_first_search(cube: list, depth_remaining: int, moves_so_far: list):
 
     attempts = 0
     for move in MOVES:
+        if len(moves_so_far) >= 1:
+            if move[0] == moves_so_far[-1][0]:
+                continue
+
+        if len(moves_so_far) >= 2:
+            if AXES[move] == AXES[moves_so_far[-1]] and AXES[move] == AXES[moves_so_far[-2]]:
+                continue
+
         attempts += 1
         test_cube = apply_moves(cube.copy(), [move])
 

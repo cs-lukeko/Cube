@@ -1,36 +1,24 @@
 from random import choice
+from constants import AXES, MOVES
 
 def print_moves(moves: list):
     moves_string = " ".join(moves)
     print(moves_string)
 
 def generate_random_moves(length: int):
-    possible_moves = ["U", "D", "F", "B", "R", "L"]
-    possible_modifications = ["", "'", "2"]
-    axes = {
-        "F": "FB",
-        "B": "FB",
-        "U": "UD",
-        "D": "UD",
-        "R": "RL",
-        "L": "RL"
-    }
     moves = []
     while len(moves) < length:
-        move = choice(possible_moves)
+        move = choice(MOVES)
 
         if len(moves) >= 1:
-            if move == moves[-1]:
+            if move[0] == moves[-1][0]:
                 continue
 
         if len(moves) >= 2:
-            if axes[move] == axes[moves[-1]] and axes[move] == axes[moves[-2]]:
+            if AXES[move] == AXES[moves[-1]] and AXES[move] == AXES[moves[-2]]:
                 continue
 
         moves.append(move)
-
-    for i in range(len(moves)):
-        moves[i] += choice(possible_modifications)
 
     return moves
 
