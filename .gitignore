@@ -1,2 +1,3 @@
 __pycache__/
 *.pyc
+look_up_tables/*.pkl
