@@ -3,6 +3,7 @@ from moves import *
 from scrambles import *
 from solver_v1 import solve_v1
 from solver_v2 import solve_v2, print_solve_statistics
+from solver_v3 import solve_v3
 from constants import SOLVED_CUBE
 
 def main():
@@ -10,10 +11,12 @@ def main():
     cube = SOLVED_CUBE
 
     # pick solver
-    solver = input("Which solver version to be used: ")
+    # solver = input("Which solver version to be used: ")
+    solver = "3"
 
     # scramble cube
-    scramble_length = 5
+    scramble_length = 12
+
     scramble = generate_random_moves(scramble_length)
     cube = apply_moves(cube, scramble)
     print_cube_state(cube)
@@ -37,6 +40,21 @@ def main():
     if solver == "2":
         print("Version 2 selected: Iterative Deepening Depth First Search (IDDFS)")
         solution, attempts, time = solve_v2(cube)
+        cube = apply_moves(cube, solution)
+        print_cube_state(cube)
+        print("Solution: ", end="")
+        print_moves(solution)
+        print_solve_statistics(attempts, time)
+        if solution != inverse_moves(reverse_moves(scramble)):
+            print("Found solution different to inverse scramble!")
+        else:
+            print("Inverse found.")
+        print()
+
+    # solve cube using solver_v3
+    if solver == "3":
+        print("Version 3 selected: IDDFS + lookup table")
+        solution, attempts, time = solve_v3(cube)
         cube = apply_moves(cube, solution)
         print_cube_state(cube)
         print("Solution: ", end="")
