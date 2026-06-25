@@ -1,25 +1,27 @@
-from cube import print_cube_state
+# from cube import print_cube_state
 from moves import *
 from scrambles import *
-from solver_v1 import solve_v1
-from solver_v2 import solve_v2, print_solve_statistics
+from solver_v1 import solve_v1, print_solve_statistics
+from solver_v2 import solve_v2
 from solver_v3 import solve_v3
-from constants import SOLVED_CUBE
+from cube import *
+from pickle import load
 
 def main():
     # initialise cube
-    cube = SOLVED_CUBE
+    cube = Cube()
 
     # pick solver
     # solver = input("Which solver version to be used: ")
     solver = "3"
 
     # scramble cube
-    scramble_length = 12
+    scramble_length = 11
+
 
     scramble = generate_random_moves(scramble_length)
     cube = apply_moves(cube, scramble)
-    print_cube_state(cube)
+    print(cube)
     print("Scramble: ", end="")
     print_moves(scramble)
     print()
@@ -29,7 +31,7 @@ def main():
         print("Version 1 selected: Random Search")
         solution, attempts, time = solve_v1(cube, scramble_length)
         cube = apply_moves(cube, solution)
-        print_cube_state(cube)
+        print(cube)
         print_moves(solution)
         print_solve_statistics(attempts, time)
         if solution == inverse_moves(reverse_moves(scramble)):
@@ -41,7 +43,7 @@ def main():
         print("Version 2 selected: Iterative Deepening Depth First Search (IDDFS)")
         solution, attempts, time = solve_v2(cube)
         cube = apply_moves(cube, solution)
-        print_cube_state(cube)
+        print(cube)
         print("Solution: ", end="")
         print_moves(solution)
         print_solve_statistics(attempts, time)
@@ -54,9 +56,10 @@ def main():
     # solve cube using solver_v3
     if solver == "3":
         print("Version 3 selected: IDDFS + lookup table")
-        solution, attempts, time = solve_v3(cube)
+        look_up_table = 6
+        solution, attempts, time = solve_v3(cube, look_up_table)
         cube = apply_moves(cube, solution)
-        print_cube_state(cube)
+        print(cube)
         print("Solution: ", end="")
         print_moves(solution)
         print_solve_statistics(attempts, time)

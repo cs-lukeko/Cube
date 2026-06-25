@@ -6,14 +6,17 @@ from scrambles import reverse_moves, inverse_moves
 
 attempts = 0
 
-def solve_v3(cube: list):
+def solve_v3(cube: list, look_up_table: int):
     global attempts
     attempts = 0
     solution = None
     start_time = perf_counter()
 
-    with open("look_up_tables/database_6_away_from_solved.pkl", "rb") as file:
+    filename = f"look_up_tables/database_{look_up_table}_away_from_solved.pkl"
+
+    with open(filename, "rb") as file:
         database = load(file)
+    print("Database loaded...")
 
     for depth in range(1, GODS_NUMBER + 1):
         solution = depth_first_search(cube.copy(), depth, [], database)
@@ -22,13 +25,12 @@ def solve_v3(cube: list):
 
     end_time = perf_counter()
     time = end_time - start_time
-    print(attempts)
     return solution, attempts, time
 
 def depth_first_search(cube: list, depth_remaining: int, moves_so_far: list, database):    
     global attempts
-    if tuple(cube) in database:
-        database_solution = database[tuple(cube)]
+    if tuple(cube.state) in database and depth_remaining == 0:
+        database_solution = database[tuple(cube.state)]
         return moves_so_far + inverse_moves(reverse_moves(database_solution))
 
     if depth_remaining == 0:
@@ -44,7 +46,6 @@ def depth_first_search(cube: list, depth_remaining: int, moves_so_far: list, dat
                 continue
 
         attempts += 1
-
         test_cube = apply_moves(cube.copy(), [move])
 
         result = depth_first_search(test_cube, depth_remaining - 1, moves_so_far + [move], database)

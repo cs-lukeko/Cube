@@ -1,4 +1,4 @@
-from cube import is_solved
+from cube import *
 from moves import apply_moves
 from time import perf_counter
 from constants import MOVES, AXES, GODS_NUMBER
@@ -25,7 +25,7 @@ def solve_v2(cube: list):
     return solution, total_attempts, time
 
 def depth_first_search(cube: list, depth_remaining: int, moves_so_far: list):
-    if is_solved(cube):
+    if cube.is_solved():
         return moves_so_far, 0
 
     if depth_remaining == 0:

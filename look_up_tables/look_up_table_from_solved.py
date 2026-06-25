@@ -1,11 +1,12 @@
 # Generates file with cube states n moves away from solved
-from constants import SOLVED_CUBE, MOVES, AXES
+from constants import MOVES, AXES
+from cube import Cube
 from pickle import dump
 from moves import apply_moves
 
 def generate_look_up_table(n: int):
     database = {}
-    depth_first_search(SOLVED_CUBE.copy(), n, [], database)
+    depth_first_search(Cube(), n, [], database)
 
     with open(f"database_{n}_away_from_solved.pkl", "wb") as file:
         dump(database, file)
@@ -15,7 +16,7 @@ def generate_look_up_table(n: int):
     return database    
     
 def depth_first_search(cube, depth_remaining, moves_so_far, database):
-    key = tuple(cube)
+    key = tuple(cube.state)
     
     if key not in database:
         database[key] = moves_so_far
