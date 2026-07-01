@@ -1,25 +1,30 @@
 from cube import *
 from moves import generate_random_moves, apply_moves
 from time import perf_counter
+from solver import Solver
 
 # Brute forces 6 random moves until it finds the solution. Takes a long time for any scrambles longer than 6 moves
-def solve_v1(cube, scramble_length):
-    attempts = 0
-    start_time = perf_counter()
+class SolverV1(Solver):
 
-    while True:
-        solution = generate_random_moves(scramble_length)
-        test_cube = apply_moves(cube.copy(), solution)
-        attempts += 1
-        if test_cube.is_solved():
-            end_time = perf_counter()
-            break
+    def __init__(self, cube: Cube, scramble_length: int):
+        super().__init__(cube)
+        self.scramble_length = scramble_length
 
-    time = end_time - start_time
+    @property
+    def name(self):
+        return "Brute Force - Random"
 
-    return solution, attempts, time
+    def solve(self, scramble_length):
+        start_time = perf_counter()
 
-def print_solve_statistics(attempts, time):
-    print()
-    print(f"Solutions attempted = {attempts:,}")
-    print(f"Time taken: {(time):.3f}s")
+        while True:
+            self.solution = generate_random_moves(scramble_length)
+            test_cube = apply_moves(self.cube.copy(), self.solution)
+            self.attempts += 1
+            if test_cube.is_solved():
+                end_time = perf_counter()
+                break
+
+        self.time = end_time - start_time
+
+        return self.solution, self.attempts, self.time

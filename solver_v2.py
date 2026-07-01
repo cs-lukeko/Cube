@@ -2,58 +2,52 @@ from cube import *
 from moves import apply_moves
 from time import perf_counter
 from constants import MOVES, AXES, GODS_NUMBER
-
-attempts = 0
+from solver import Solver
 
 # Uses iteratively deepening depth-first search to find the solution in a systematic way rather than random selection of moves. Still takes a long time for scrambles of length 6 or greater.
 # Iterative Deepening (ID) = for each loop completed, the depth of search increases by 1
 # Depth-First Search (DFS) = explores the length of a branch before moving to the next - opposite of Breadth-First Search (BFS)
-def solve_v2(cube: list):
-    total_attempts = 0
-    solution = []
-    start_time = perf_counter()
+class SolverV2(Solver):
 
-    for depth in range(1, GODS_NUMBER + 1):
-        solution, depth_attempts = depth_first_search(cube.copy(), depth, [])
-        total_attempts += depth_attempts
-        if solution is not None:
-            break
+    @property
+    def name(self):
+        return "Iterative Deepening Depth-First Search (IDDFS)"
 
-    end_time = perf_counter()
-    time = end_time - start_time
+    def solve(self):
+        start_time = perf_counter()
 
-    return solution, total_attempts, time
+        for depth in range(1, GODS_NUMBER + 1):
+            result = self._depth_first_search(self.cube.copy(), depth, [])
+            if result is not None:
+                self.solution = result
+                break
 
-def depth_first_search(cube: list, depth_remaining: int, moves_so_far: list):
-    if cube.is_solved():
-        return moves_so_far, 0
+        self.time = perf_counter() - start_time
 
-    if depth_remaining == 0:
-        return None, 0
+        return self.solution, self.attempts, self.time
 
-    attempts = 0
-    for move in MOVES:
-        if len(moves_so_far) >= 1:
-            if move[0] == moves_so_far[-1][0]:
-                continue
+    def _depth_first_search(self, cube: Cube, depth_remaining: int, moves_so_far: list):
+        if cube.is_solved():
+            return moves_so_far
 
-        if len(moves_so_far) >= 2:
-            if AXES[move] == AXES[moves_so_far[-1]] and AXES[move] == AXES[moves_so_far[-2]]:
-                continue
+        if depth_remaining == 0:
+            return None
 
-        attempts += 1
-        test_cube = apply_moves(cube.copy(), [move])
+        for move in MOVES:
+            if len(moves_so_far) >= 1:
+                if move[0] == moves_so_far[-1][0]:
+                    continue
 
-        result, child_attempts = depth_first_search(test_cube, depth_remaining - 1, moves_so_far + [move])
-        attempts += child_attempts
+            if len(moves_so_far) >= 2:
+                if AXES[move] == AXES[moves_so_far[-1]] and AXES[move] == AXES[moves_so_far[-2]]:
+                    continue
 
-        if result is not None:
-            return result, attempts
+            self.attempts += 1
+            test_cube = apply_moves(cube.copy(), [move])
 
-    return None, attempts
-        
-def print_solve_statistics(attempts, time):
-    print()
-    print(f"Solutions attempted = {attempts:,}")
-    print(f"Time taken: {(time):.3f}s")
-    print(f"Rate: {(attempts / time):,.0f} attempts/s")
+            result = self._depth_first_search(test_cube, depth_remaining - 1, moves_so_far + [move])
+
+            if result is not None:
+                return result
+
+        return None
