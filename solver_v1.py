@@ -14,11 +14,11 @@ class SolverV1(Solver):
     def name(self):
         return "Brute Force - Random"
 
-    def solve(self, scramble_length):
+    def solve(self):
         start_time = perf_counter()
 
         while True:
-            self.solution = generate_random_moves(scramble_length)
+            self.solution = generate_random_moves(self.scramble_length)
             test_cube = apply_moves(self.cube.copy(), self.solution)
             self.attempts += 1
             if test_cube.is_solved():
