@@ -40,3 +40,40 @@ class Cube:
             f"       {cube[30]}{cube[31]}{cube[32]}\n"
             f"       {cube[33]}{cube[34]}{cube[35]}"
         )
+
+    def count_oriented_edges(self):
+        oriented_edges = 0
+
+        EDGES = [
+            [self.state[7], self.state[19]],  # UF
+            [self.state[5], self.state[10]],  # UR
+            [self.state[1], self.state[46]],  # UB
+            [self.state[3], self.state[37]],  # UL
+            [self.state[23], self.state[12]], # FR
+            [self.state[21], self.state[41]], # FL
+            [self.state[48], self.state[14]], # BR
+            [self.state[50], self.state[39]], # BL
+            [self.state[28], self.state[25]], # DF
+            [self.state[32], self.state[16]], # DR
+            [self.state[34], self.state[52]], # DB
+            [self.state[30], self.state[43]]  # DL
+        ]
+
+        for edge in EDGES:
+            if self.is_oriented(edge[0], edge[1]):
+                oriented_edges += 1
+
+        return oriented_edges
+
+    def is_oriented(self, edge_1: str, edge_2: str):
+        if edge_1 == "W" or edge_1 == "Y":
+            return True
+        elif (edge_1 == "B" or edge_1 == "G") and (edge_2 == "R" or edge_2 == "O"):
+            return True
+        return False
+
+    def is_eo_solved(self):
+        return self.count_oriented_edges() == 12
+    
+    def is_eo_line_solved(self):
+        return self.state[25] == "G" and self.state[28] == "Y" and self.state[52] == "B" and self.state[34] == "Y"
