@@ -12,13 +12,14 @@ def main():
     cube = Cube()
 
     # pick solver
-    # solver = input("Which solver version to be used: ")
+    # solver_version = input("Which solver version to be used: ")
     solver_version = "4"
 
     # scramble cube
     scramble_length = 20
 
     scramble = generate_random_moves(scramble_length)
+    scramble = "L2 B U2 B' L2 F2 L2 D2 B2 D2 B2 U' R' B L B' F D' R B2 D'".split(" ")
     cube = apply_moves(cube, scramble)
     print(cube)
     print(f"Scramble: {" ".join(scramble)}")
@@ -42,7 +43,7 @@ def main():
 
     # solve cube using SolverV4
     if solver_version == "4":
-        solver = SolverV4(cube)
+        solver = SolverV4(cube, look_up_table = 6)
         solution, attempts, time = solver.solve()  
 
     print(f"Solver: {solver.name}")

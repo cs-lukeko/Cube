@@ -77,3 +77,20 @@ class Cube:
     
     def is_eo_line_solved(self):
         return self.state[25] == "G" and self.state[28] == "Y" and self.state[52] == "B" and self.state[34] == "Y"
+
+    def is_cross_solved(self):
+        return self.state[25] == "G" and self.state[28] == "Y" and self.state[52] == "B" and self.state[34] == "Y" and self.state[16] == "R" and self.state[32] == "Y" and self.state[43] == "O" and self.state[30] == "Y"
+
+    def is_dr_solved(self):
+        # check U is correct
+        for i in range(9):
+            if not (self.state[i] == "Y" or self.state[i] =="W"):
+                return False
+        # check D is correct
+        for i in range(27, 36):
+            if not (self.state[i] == "Y" or self.state[i] =="W"):
+                return False
+        # check middle slice is correct
+        if not (self.state[21] == "B" or self.state[21] == "G") and (self.state[23] == "B" or self.state[23] == "G") and (self.state[48] == "B" or self.state[48] == "G") and (self.state[50] == "B" or self.state[50] == "G"):
+            return False
+        return True
