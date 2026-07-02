@@ -1,7 +1,7 @@
 from cube import *
 from moves import apply_moves
 from time import perf_counter
-from constants import MOVES, AXES, GODS_NUMBER
+from constants import FULL_MOVESET, AXES, GODS_NUMBER
 from solver import Solver
 
 # Uses iteratively deepening depth-first search to find the solution in a systematic way rather than random selection of moves. Still takes a long time for scrambles of length 6 or greater.
@@ -33,7 +33,7 @@ class SolverV2(Solver):
         if depth_remaining == 0:
             return None
 
-        for move in MOVES:
+        for move in FULL_MOVESET:
             if len(moves_so_far) >= 1:
                 if move[0] == moves_so_far[-1][0]:
                     continue

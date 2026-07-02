@@ -1,5 +1,5 @@
 from random import choice
-from constants import AXES, MOVES
+from constants import AXES, FULL_MOVESET
 from cube import *
 
 def print_moves(moves: list):
@@ -9,7 +9,7 @@ def print_moves(moves: list):
 def generate_random_moves(length: int):
     moves = []
     while len(moves) < length:
-        move = choice(MOVES)
+        move = choice(FULL_MOVESET)
 
         if len(moves) >= 1:
             if move[0] == moves[-1][0]:

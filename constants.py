@@ -7,7 +7,7 @@ AXES = {
     "B": "FB", "B'": "FB", "B2": "FB"
 }
 
-MOVES = [
+FULL_MOVESET = [ # 18 moves total
     "U", "U'", "U2", 
     "R", "R'", "R2", 
     "F", "F'", "F2", 
@@ -16,7 +16,21 @@ MOVES = [
     "B", "B'", "B2"
 ]
 
-EO_MOVESET = ["U", "U'", "U2", "D", "D'", "D2", "R2", "L2", "F2", "B2"]
+EO_MOVESET = [ # 14 moves total
+    "U", "U'", "U2",
+    "D", "D'", "D2",
+    "R", "R'", "R2",
+    "L", "L'", "L2",
+    "F2",
+    "B2"]
+
+DR_MOVESET = [ # 10 moves total
+    "U", "U'", "U2",
+    "D", "D'", "D2",
+    "R2",
+    "L2",
+    "F2",
+    "B2"]
 
 FACES = ["U", "R", "F", "D", "L", "B"]
 

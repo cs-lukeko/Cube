@@ -1,6 +1,6 @@
 from moves import apply_moves
 from time import perf_counter
-from constants import MOVES, AXES, GODS_NUMBER
+from constants import FULL_MOVESET, AXES, GODS_NUMBER
 from pickle import load
 from scrambles import reverse_moves, inverse_moves
 from solver import Solver
@@ -42,7 +42,7 @@ class SolverV3(Solver):
         if depth_remaining == 0:
             return None
 
-        for move in MOVES:
+        for move in FULL_MOVESET:
             if len(moves_so_far) >= 1:
                 if move[0] == moves_so_far[-1][0]:
                     continue
