@@ -1,6 +1,5 @@
 from random import choice
 from constants import AXES, FULL_MOVESET
-from cube import *
 
 def print_moves(moves: list):
     moves_string = " ".join(moves)
@@ -22,12 +21,6 @@ def generate_random_moves(length: int):
         moves.append(move)
 
     return moves
-
-def apply_moves(cube, moves_list):
-    new_state = cube.state.copy()
-    for move in moves_list:
-        new_state = MOVE_FUNCTIONS[move](new_state)
-    return Cube(new_state)
 
 def u(old_state):
     new_state = old_state.copy()

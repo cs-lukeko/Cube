@@ -1,4 +1,5 @@
 from constants import SOLVED_CUBE
+from moves import MOVE_FUNCTIONS
 
 class Cube:
     def __init__(self, state = None):
@@ -12,6 +13,12 @@ class Cube:
 
     def is_solved(self):
         return self.state == SOLVED_CUBE
+
+    def apply_moves(self, moves_list: list):
+        new_state = self.state.copy()
+        for move in moves_list:
+            new_state = MOVE_FUNCTIONS[move](new_state)
+        self.state = new_state
 
     def __str__(self):
         cube = self.state.copy() # copies cube STATE, not Cube

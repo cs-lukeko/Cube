@@ -1,7 +1,6 @@
 from pickle import load
 from constants import AXES, DR_MOVESET, GODS_NUMBER, FULL_MOVESET, EO_MOVESET
 from cube import Cube
-from moves import apply_moves
 from scrambles import inverse_moves, reverse_moves
 from solver import Solver
 from time import perf_counter
@@ -32,7 +31,8 @@ class SolverV4(Solver):
                 break
 
         # solve DR
-        eo_cube = apply_moves(self.cube.copy(), eo_solution)
+        eo_cube = self.cube.copy()
+        eo_cube.apply_moves(eo_solution)
         dr_solution = None
         for depth in range(1, GODS_NUMBER + 1):
             result = self._depth_first_search(eo_cube.copy(), depth, [], EO_MOVESET, self._dr_solved)
@@ -41,7 +41,8 @@ class SolverV4(Solver):
                 break
 
         # search until a state in the look-up table is found
-        dr_cube = apply_moves(eo_cube, dr_solution)
+        dr_cube = eo_cube.copy()
+        dr_cube.apply_moves(dr_solution)
         middle_solution = None
         for depth in range(1, GODS_NUMBER + 1):
             self._middle_result = None
@@ -72,9 +73,9 @@ class SolverV4(Solver):
                     continue
 
             self.attempts += 1
-            result = self._depth_first_search(
-                apply_moves(cube.copy(), [move]), depth_remaining - 1, moves_so_far + [move], moveset, is_solved, database
-            )
+            test_cube = cube.copy()
+            test_cube.apply_moves([move])
+            result = self._depth_first_search(test_cube, depth_remaining - 1, moves_so_far + [move], moveset, is_solved, database)
             if result is not None:
                 return result
 

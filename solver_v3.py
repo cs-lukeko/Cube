@@ -1,4 +1,3 @@
-from moves import apply_moves
 from time import perf_counter
 from constants import FULL_MOVESET, AXES, GODS_NUMBER
 from pickle import load
@@ -52,7 +51,8 @@ class SolverV3(Solver):
                     continue
 
             self.attempts += 1
-            test_cube = apply_moves(cube.copy(), [move])
+            test_cube = cube.copy()
+            test_cube.apply_moves([move])
 
             result = self._depth_first_search(test_cube, depth_remaining - 1, moves_so_far + [move], database)
 

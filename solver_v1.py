@@ -1,5 +1,5 @@
 from cube import *
-from moves import generate_random_moves, apply_moves
+from moves import generate_random_moves
 from time import perf_counter
 from solver import Solver
 
@@ -18,13 +18,14 @@ class SolverV1(Solver):
         start_time = perf_counter()
 
         while True:
-            self.solution = generate_random_moves(self.scramble_length)
-            test_cube = apply_moves(self.cube.copy(), self.solution)
+            test_cube = self.cube.copy()
+            test_solution = generate_random_moves(self.scramble_length)
+            test_cube.apply_moves(test_solution)
             self.attempts += 1
             if test_cube.is_solved():
-                end_time = perf_counter()
+                self.solution = test_solution
                 break
 
-        self.time = end_time - start_time
+        self.time = perf_counter() - start_time
 
         return self.solution, self.attempts, self.time
