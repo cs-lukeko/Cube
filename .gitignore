@@ -3,3 +3,4 @@ __pycache__/
 look_up_tables/*.pkl
 Notes.txt
 .env
+benchmark_tests/
