@@ -1,8 +1,12 @@
 from abc import ABC, abstractmethod
 
+from cube import Cube
+
 class Solver(ABC):
-    def __init__(self, cube):
+    def __init__(self, cube: Cube, scramble_length: int = None, look_up_table: int = None):
         self.cube = cube
+        self.scramble_length = scramble_length
+        self.look_up_table = look_up_table
         self.solution = []
         self.attempts = 0
         self.time = 0.0
