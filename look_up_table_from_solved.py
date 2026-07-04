@@ -2,10 +2,9 @@
 from constants import DR_MOVESET, FULL_MOVESET, AXES, EO_MOVESET
 from cube import Cube
 from pickle import dump
-from moves import apply_moves
 
 # change these variables
-set = EO_MOVESET
+moveset = EO_MOVESET
 n = 6
 
 def generate_look_up_table_to_solved(n: int):
@@ -13,11 +12,11 @@ def generate_look_up_table_to_solved(n: int):
     depth_first_search(Cube(), n, [], database)
 
     set_str = ""
-    if set == FULL_MOVESET:
+    if moveset == FULL_MOVESET:
         set_str = ""
-    elif set == EO_MOVESET:
+    elif moveset == EO_MOVESET:
         set_str = "_eo"
-    elif set == DR_MOVESET:
+    elif moveset == DR_MOVESET:
         set_str = "_dr"
 
     with open(f"look_up_tables/database_{n}_moves{set_str}_to_solved.pkl", "wb") as file:
@@ -36,7 +35,7 @@ def depth_first_search(cube, depth_remaining, moves_so_far, database):
     if depth_remaining == 0:
         return None
 
-    for move in set:
+    for move in moveset:
         if len(moves_so_far) >= 1:
             if move[0] == moves_so_far[-1][0]:
                 continue
@@ -45,9 +44,9 @@ def depth_first_search(cube, depth_remaining, moves_so_far, database):
             if AXES[move] == AXES[moves_so_far[-1]] and AXES[move] == AXES[moves_so_far[-2]]:
                 continue
 
-        next_cube = apply_moves(cube, [move])
+        cube.apply_moves([move])
 
-        depth_first_search(next_cube, depth_remaining - 1, moves_so_far + [move], database)
+        depth_first_search(cube, depth_remaining - 1, moves_so_far + [move], database)
 
 for i in range(1, n + 1):
     generate_look_up_table_to_solved(i)

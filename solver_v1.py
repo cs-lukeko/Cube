@@ -7,8 +7,7 @@ from solver import Solver
 class SolverV1(Solver):
 
     def __init__(self, cube: Cube, scramble_length: int = 6, look_up_table: int = None):
-        super().__init__(cube)
-        self.scramble_length = scramble_length
+        super().__init__(cube, scramble_length=scramble_length, look_up_table=look_up_table)
 
     @property
     def name(self):

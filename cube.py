@@ -98,6 +98,6 @@ class Cube:
             if not (self.state[i] == "Y" or self.state[i] =="W"):
                 return False
         # check middle slice is correct
-        if not (self.state[21] == "B" or self.state[21] == "G") and (self.state[23] == "B" or self.state[23] == "G") and (self.state[48] == "B" or self.state[48] == "G") and (self.state[50] == "B" or self.state[50] == "G"):
+        if not ((self.state[21] == "B" or self.state[21] == "G") and (self.state[23] == "B" or self.state[23] == "G") and (self.state[48] == "B" or self.state[48] == "G") and (self.state[50] == "B" or self.state[50] == "G")):
             return False
         return True

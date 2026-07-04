@@ -1,12 +1,11 @@
 # from cube import print_cube_state
-from moves import *
-from scrambles import *
+from moves import generate_random_moves
 from solver_v1 import SolverV1
 from solver_v2 import SolverV2
 from solver_v3 import SolverV3
 from solver_v4 import SolverV4
 from solver_v5 import SolverV5
-from cube import *
+from cube import Cube
 
 def main():
     # initialise cube

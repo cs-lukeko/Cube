@@ -1,6 +1,5 @@
 from cube import Cube
 from moves import generate_random_moves
-from solver import Solver
 from solver_v1 import SolverV1
 from solver_v2 import SolverV2
 from solver_v3 import SolverV3
