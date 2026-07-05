@@ -65,4 +65,9 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_ta
         file.write(f"{result_str}")
         print(f"Result saved to {file.name}\n")
 
-run_benchmark_test_ao5(4, 20, 7)
+# run tests (solver_version, scramble_length, look_up_table)
+# uses longest look_up_table where file size is <1MB
+run_benchmark_test_ao5(1, 5, None)
+run_benchmark_test_ao5(2, 5, None)
+run_benchmark_test_ao5(3, 12, 5)
+run_benchmark_test_ao5(4, 20, 8)
