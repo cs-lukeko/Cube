@@ -1,32 +1,29 @@
 # Generates file with cube states n moves away from solved
-from constants import DR_MOVESET, FULL_MOVESET, AXES, EO_MOVESET
+from constants import AXES, EO_MOVESET, DR_MOVESET, FULL_MOVESET
 from cube import Cube
 from pickle import dump
 
-# change these variables
-moveset = EO_MOVESET
-n = 6
-
-def generate_look_up_table_to_solved(n: int):
+def generate_look_up_table(n: int, moveset):
+    moveset = moveset
     database = {}
-    depth_first_search(Cube(), n, [], database)
+    depth_first_search(Cube(), n, [], database, moveset)
 
     set_str = ""
     if moveset == FULL_MOVESET:
-        set_str = ""
+        set_str = "_solved"
     elif moveset == EO_MOVESET:
         set_str = "_eo"
     elif moveset == DR_MOVESET:
         set_str = "_dr"
 
-    with open(f"look_up_tables/database_{n}_moves{set_str}_to_solved.pkl", "wb") as file:
+    with open(f"look_up_tables/database_{n}_moves{set_str}.pkl", "wb") as file:
         dump(database, file)
 
-    print(f"Look-up table {n} complete. {len(database):,} states generated")
+    print(f"Look-up table {n} ({set_str[1:].upper()}) complete. {len(database):,} states generated")
 
     return database    
     
-def depth_first_search(cube, depth_remaining, moves_so_far, database):
+def depth_first_search(cube, depth_remaining, moves_so_far, database, moveset):
     key = tuple(cube.state)
     
     if key not in database:
@@ -46,7 +43,7 @@ def depth_first_search(cube, depth_remaining, moves_so_far, database):
 
         cube.apply_moves([move])
 
-        depth_first_search(cube, depth_remaining - 1, moves_so_far + [move], database)
+        depth_first_search(cube, depth_remaining - 1, moves_so_far + [move], database, moveset)
 
-for i in range(1, n + 1):
-    generate_look_up_table_to_solved(i)
+n = 9
+generate_look_up_table(n, DR_MOVESET)

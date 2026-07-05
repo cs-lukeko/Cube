@@ -7,7 +7,7 @@ from time import perf_counter
 
 class SolverV4(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = None, look_up_table: int = 7):
+    def __init__(self, cube: Cube, scramble_length: int = None, look_up_table: int = 9):
         super().__init__(cube)
         self.look_up_table = look_up_table
 
@@ -18,7 +18,7 @@ class SolverV4(Solver):
     def solve(self):
         start_time = perf_counter()
 
-        filename = f"look_up_tables/database_{self.look_up_table}_away_from_solved_dr.pkl"
+        filename = f"look_up_tables/database_{self.look_up_table}_moves_dr.pkl"
         with open(filename, "rb") as file:
             database = load(file)
 

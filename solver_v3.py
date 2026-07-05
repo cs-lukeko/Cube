@@ -18,7 +18,7 @@ class SolverV3(Solver):
     def solve(self):
         start_time = perf_counter()
 
-        filename = f"look_up_tables/database_{self.look_up_table}_away_from_solved.pkl"
+        filename = f"look_up_tables/database_{self.look_up_table}_moves_solved.pkl"
 
         with open(filename, "rb") as file:
             database = load(file)
