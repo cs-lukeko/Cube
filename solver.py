@@ -3,9 +3,9 @@ from abc import ABC, abstractmethod
 from cube import Cube
 
 class Solver(ABC):
-    def __init__(self, cube: Cube, scramble_length: int = None):
+    def __init__(self, cube: Cube):
         self.cube = cube
-        self.scramble_length = scramble_length
+        self.max_scramble_length = float('inf')
         self.solution = []
         self.attempts = 0
         self.time = 0.0

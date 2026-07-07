@@ -7,8 +7,9 @@ from cube import Cube
 
 class SolverV3(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = None):
+    def __init__(self, cube: Cube, max_scramble_length: int = 11):
         super().__init__(cube)
+        self.max_scramble_length = max_scramble_length
 
     @property
     def name(self):
@@ -17,7 +18,7 @@ class SolverV3(Solver):
     def solve(self):
         start_time = perf_counter()
 
-        filename = DATABASES["dr_to_solved"]
+        filename = DATABASES["full_to_solved"]
 
         with open(filename, "rb") as file:
             database = load(file)

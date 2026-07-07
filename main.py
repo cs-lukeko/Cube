@@ -16,7 +16,7 @@ def main():
     solver_version = "4"
 
     # scramble cube
-    scramble_length = 20
+    scramble_length = 30
 
     scramble = generate_random_moves(scramble_length)
     cube.apply_moves(scramble)
@@ -26,28 +26,48 @@ def main():
 
     # solve cube using SolverV1
     if solver_version == "1":
-        solver = SolverV1(cube, scramble_length)
-        solution, attempts, time = solver.solve()
+        solver = SolverV1(cube)
+        if scramble_length > solver.max_scramble_length:
+            print("Scramble is too complex for this solver. Reduce scramble length or change solver.")
+            return
+        else:
+            solution, attempts, time = solver.solve()
 
     # solve cube using SolverV2
     if solver_version == "2":
         solver = SolverV2(cube)
-        solution, attempts, time = solver.solve()
+        if scramble_length > solver.max_scramble_length:
+            print("Scramble is too complex for this solver. Reduce scramble length or change solver.")
+            return
+        else:
+            solution, attempts, time = solver.solve()
 
     # solve cube using SolverV3
     if solver_version == "3":
         solver = SolverV3(cube)
-        solution, attempts, time = solver.solve()    
+        if scramble_length > solver.max_scramble_length:
+            print("Scramble is too complex for this solver. Reduce scramble length or change solver.")
+            return
+        else:
+            solution, attempts, time = solver.solve()
 
     # solve cube using SolverV4
     if solver_version == "4":
         solver = SolverV4(cube)
-        solution, attempts, time = solver.solve()
+        if scramble_length > solver.max_scramble_length:
+            print("Scramble is too complex for this solver. Reduce scramble length or change solver.")
+            return
+        else:
+            solution, attempts, time = solver.solve()
 
     # solve cube using SolverV5
     if solver_version == "5":
         solver = SolverV5(cube)
-        solution, attempts, time = solver.solve() 
+        if scramble_length > solver.max_scramble_length:
+            print("Scramble is too complex for this solver. Reduce scramble length or change solver.")
+            return
+        else:
+            solution, attempts, time = solver.solve()
 
     print(f"Solver: {solver.name}")
     cube.apply_moves(solution)

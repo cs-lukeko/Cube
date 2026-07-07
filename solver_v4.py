@@ -7,9 +7,6 @@ from time import perf_counter
 
 class SolverV4(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = None):
-        super().__init__(cube)
-
     @property
     def name(self):
         return "EO (using IDDFS) + DR (using IDDFS) + Look-Up Tables"

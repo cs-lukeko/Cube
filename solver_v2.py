@@ -8,8 +8,9 @@ from solver import Solver
 # Depth-First Search (DFS) = explores the length of a branch before moving to the next - opposite of Breadth-First Search (BFS)
 class SolverV2(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = None):
+    def __init__(self, cube: Cube, max_scramble_length: int = 6):
         super().__init__(cube)
+        self.max_scramble_length = max_scramble_length
         
     @property
     def name(self):
