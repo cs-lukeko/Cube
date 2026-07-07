@@ -6,8 +6,8 @@ from solver import Solver
 # Brute forces 6 random moves until it finds the solution. Takes a long time for any scrambles longer than 6 moves
 class SolverV1(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = 6, look_up_table: int = None):
-        super().__init__(cube, scramble_length=scramble_length, look_up_table=look_up_table)
+    def __init__(self, cube: Cube, scramble_length: int = 6):
+        super().__init__(cube, scramble_length=scramble_length)
 
     @property
     def name(self):

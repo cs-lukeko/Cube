@@ -45,3 +45,8 @@ SOLVED_CUBE = [
     ]
 
 GODS_NUMBER = 20
+
+DATABASES = {
+    "dr_to_solved": "look_up_tables/database_7_moves_dr_to_solved.pkl",
+    "full_to_solved": "look_up_tables/database_5_moves_full_to_solved.pkl"
+}

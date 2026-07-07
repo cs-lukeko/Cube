@@ -14,7 +14,7 @@ SOLVERS = [
     SolverV5
 ]
 
-def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_table: int):
+def run_benchmark_test_ao5(solver_version: int, scramble_length: int):
     scrambles = []
     solutions = []
     times = []
@@ -28,7 +28,7 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_ta
         scramble = generate_random_moves(scramble_length)
         scrambles.append(scramble)
         cube.apply_moves(scramble)
-        solver = SOLVERS[solver_version - 1](cube, scramble_length = scramble_length, look_up_table = look_up_table)
+        solver = SOLVERS[solver_version - 1](cube, scramble_length = scramble_length)
         solution, attempts, time = solver.solve()
         solutions.append(solution)
         number_of_moves.append(len(solution))
@@ -65,9 +65,8 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_ta
         file.write(f"{result_str}")
         print(f"Result saved to {file.name}\n")
 
-# run tests (solver_version, scramble_length, look_up_table)
-# uses longest look_up_table where file size is <1MB
-run_benchmark_test_ao5(1, 5, None)
-run_benchmark_test_ao5(2, 5, None)
-run_benchmark_test_ao5(3, 12, 5)
-run_benchmark_test_ao5(4, 20, 8)
+# run tests (solver_version, scramble_length)
+run_benchmark_test_ao5(1, 5)
+run_benchmark_test_ao5(2, 5)
+run_benchmark_test_ao5(3, 12)
+run_benchmark_test_ao5(4, 20)

@@ -32,7 +32,7 @@ def save_results(results: dict):
         json.dump(results, file, indent=4)
 
 
-def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_table: int = None):
+def run_benchmark_test_ao5(solver_version: int, scramble_length: int):
     print(f"\n--- Running benchmark: SolverV{solver_version}, scramble length {scramble_length} ---")
 
     scrambles = []
@@ -49,7 +49,7 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_ta
         scrambles.append(scramble)
         cube.apply_moves(scramble)
 
-        solver = SOLVERS[solver_version - 1](cube, scramble_length=scramble_length, look_up_table=look_up_table)
+        solver = SOLVERS[solver_version - 1](cube, scramble_length=scramble_length)
         solution, attempts, time = solver.solve()
 
         solutions.append(solution)
@@ -74,7 +74,6 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int, look_up_ta
     new_result = {
         "solver_version": solver_version,
         "scramble_length": scramble_length,
-        "look_up_table": look_up_table,
         "ao5": round(ao5, 3),
         "best_single": round(best_single, 3),
         "average_moves": round(average_moves, 2),
@@ -132,7 +131,6 @@ def update_results_txt_file():
         lines.append("")
 
     report = "\n".join(lines)
-    # print(report)
 
     report_file = "benchmark_tests/benchmark_test_results.txt"
     os.makedirs("benchmark_tests", exist_ok=True)
@@ -141,8 +139,8 @@ def update_results_txt_file():
     print(f"Report saved to {report_file}")
 
 
-# run tests (solver_version, scramble_length, look_up_table)
+# run tests (solver_version, scramble_length)
 # run_benchmark_test_ao5(1, 5)
 # run_benchmark_test_ao5(2, 5)
-# run_benchmark_test_ao5(3, 11, 5)
-run_benchmark_test_ao5(4, 20, 8)
+# run_benchmark_test_ao5(3, 11)
+run_benchmark_test_ao5(4, 20)

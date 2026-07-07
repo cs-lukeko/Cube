@@ -13,10 +13,10 @@ def main():
 
     # pick solver
     # solver_version = input("Which solver version to be used: ")
-    solver_version = "5"
+    solver_version = "4"
 
     # scramble cube
-    scramble_length = 8
+    scramble_length = 20
 
     scramble = generate_random_moves(scramble_length)
     cube.apply_moves(scramble)
@@ -36,18 +36,17 @@ def main():
 
     # solve cube using SolverV3
     if solver_version == "3":
-        look_up_table = 5
-        solver = SolverV3(cube, look_up_table)
+        solver = SolverV3(cube)
         solution, attempts, time = solver.solve()    
 
     # solve cube using SolverV4
     if solver_version == "4":
-        solver = SolverV4(cube, look_up_table = 6)
+        solver = SolverV4(cube)
         solution, attempts, time = solver.solve()
 
     # solve cube using SolverV5
     if solver_version == "5":
-        solver = SolverV5(cube, look_up_table = 6)
+        solver = SolverV5(cube)
         solution, attempts, time = solver.solve() 
 
     print(f"Solver: {solver.name}")

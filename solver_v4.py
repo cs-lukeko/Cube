@@ -1,5 +1,5 @@
 from pickle import load
-from constants import AXES, DR_MOVESET, GODS_NUMBER, FULL_MOVESET, EO_MOVESET
+from constants import AXES, DATABASES, DR_MOVESET, GODS_NUMBER, FULL_MOVESET, EO_MOVESET
 from cube import Cube
 from scrambles import inverse_moves, reverse_moves
 from solver import Solver
@@ -7,9 +7,8 @@ from time import perf_counter
 
 class SolverV4(Solver):
 
-    def __init__(self, cube: Cube, scramble_length: int = None, look_up_table: int = 9):
+    def __init__(self, cube: Cube, scramble_length: int = None):
         super().__init__(cube)
-        self.look_up_table = look_up_table
 
     @property
     def name(self):
@@ -18,7 +17,7 @@ class SolverV4(Solver):
     def solve(self):
         start_time = perf_counter()
 
-        filename = f"look_up_tables/database_{self.look_up_table}_moves_dr.pkl"
+        filename = DATABASES["dr_to_solved"]
         with open(filename, "rb") as file:
             database = load(file)
 
