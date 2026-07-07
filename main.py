@@ -13,10 +13,10 @@ def main():
 
     # pick solver
     # solver_version = input("Which solver version to be used: ")
-    solver_version = "4"
+    solver_version = "5"
 
     # scramble cube
-    scramble_length = 30
+    scramble_length = 20
 
     scramble = generate_random_moves(scramble_length)
     cube.apply_moves(scramble)

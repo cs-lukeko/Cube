@@ -6,12 +6,14 @@ from solver_v1 import SolverV1
 from solver_v2 import SolverV2
 from solver_v3 import SolverV3
 from solver_v4 import SolverV4
+from solver_v5 import SolverV5
 
 SOLVERS = [
     SolverV1,
     SolverV2,
     SolverV3,
     SolverV4,
+    SolverV5
 ]
 
 RESULTS_FILE = "benchmark_tests/benchmark_test_results.json"
@@ -49,7 +51,7 @@ def run_benchmark_test_ao5(solver_version: int, scramble_length: int):
         scrambles.append(scramble)
         cube.apply_moves(scramble)
 
-        solver = SOLVERS[solver_version - 1](cube, scramble_length=scramble_length)
+        solver = SOLVERS[solver_version - 1](cube)
         solution, attempts, time = solver.solve()
 
         solutions.append(solution)
@@ -143,4 +145,5 @@ def update_results_txt_file():
 # run_benchmark_test_ao5(1, 5)
 # run_benchmark_test_ao5(2, 5)
 # run_benchmark_test_ao5(3, 11)
-run_benchmark_test_ao5(4, 20)
+# run_benchmark_test_ao5(4, 20)
+run_benchmark_test_ao5(5, 20)

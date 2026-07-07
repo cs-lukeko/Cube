@@ -32,6 +32,11 @@ DR_MOVESET = [ # 10 moves total
     "F2",
     "B2"]
 
+RU_MOVESET = [ # 6 moves total
+    "U", "U'", "U2",
+    "R", "R'", "R2"
+    ]
+
 FACES = ["U", "R", "F", "D", "L", "B"]
 
 # ⬜🟥🟩🟨🟧🟦

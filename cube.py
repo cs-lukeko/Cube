@@ -87,6 +87,26 @@ class Cube:
 
     def is_cross_solved(self):
         return self.state[25] == "G" and self.state[28] == "Y" and self.state[52] == "B" and self.state[34] == "Y" and self.state[16] == "R" and self.state[32] == "Y" and self.state[43] == "O" and self.state[30] == "Y"
+    
+    # checks whether middle edges are present in the middle layer AND flipped correctly
+    def is_bldr_solved(self): 
+        # return (self.state[21] == "B" or self.state[21] == "G") and (self.state[23] == "B" or self.state[23] == "G") and (self.state[48] == "B" or self.state[48] == "G") and (self.state[50] == "B" or self.state[50] == "G")
+        
+        # dr_stickers = [0, 1, 2, 3, 5, 6, 7, 8, 27, 28, 29, 30, 32, 33, 34, 35] # Y or W
+        # dr_pieces_solved = 0
+        # for sticker in dr_stickers:
+        #     if self.state[sticker] == "W" or self.state[sticker] == "Y":
+        #         dr_pieces_solved += 1
+        # return dr_pieces_solved >= 11
+
+        # co_stickers = [0, 2, 6, 8, 27, 29, 33, 35]
+        # co_solved_stickers = 0
+        # for sticker in co_stickers:
+        #     if self.state[sticker] == "W" or self.state[sticker] == "Y":
+        #         co_solved_stickers += 1
+        # return co_solved_stickers == 8
+
+        return (self.state[21] == "G" or self.state[21] == "B") and (self.state[50] == "G" or self.state[50] == "B") and (self.state[27] == "W" or self.state[27] == "Y") and (self.state[33] == "W" or self.state[33] == "Y") and (self.state[28] == "W" or self.state[28] == "Y") and (self.state[34] == "W" or self.state[34] == "Y") and (self.state[30] == "W" or self.state[30] == "Y")
 
     def is_dr_solved(self):
         # check U is correct
