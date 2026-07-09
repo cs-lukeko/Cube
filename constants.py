@@ -1,10 +1,17 @@
+# constants.py — add wide moves to AXES
 AXES = {
     "U": "UD", "U'": "UD", "U2": "UD",
+    "Uw": "UD", "Uw'": "UD", "Uw2": "UD",
     "R": "RL", "R'": "RL", "R2": "RL",
+    "Rw": "RL", "Rw'": "RL", "Rw2": "RL",
     "F": "FB", "F'": "FB", "F2": "FB",
+    "Fw": "FB", "Fw'": "FB", "Fw2": "FB",
     "D": "UD", "D'": "UD", "D2": "UD",
+    "Dw": "UD", "Dw'": "UD", "Dw2": "UD",
     "L": "RL", "L'": "RL", "L2": "RL",
-    "B": "FB", "B'": "FB", "B2": "FB"
+    "Lw": "RL", "Lw'": "RL", "Lw2": "RL",
+    "B": "FB", "B'": "FB", "B2": "FB",
+    "Bw": "FB", "Bw'": "FB", "Bw2": "FB"
 }
 
 FULL_MOVESET = [ # 18 moves total
@@ -14,6 +21,15 @@ FULL_MOVESET = [ # 18 moves total
     "D", "D'", "D2", 
     "L", "L'", "L2", 
     "B", "B'", "B2"
+]
+
+FULL_MOVESET_INCL_WIDE = [ # 36 moves total
+    "U", "U'", "U2", "Uw", "Uw'", "Uw2",
+    "R", "R'", "R2", "Rw", "Rw'", "Rw2", 
+    "F", "F'", "F2", "Fw", "Fw'", "Fw2",
+    "D", "D'", "D2", "Dw", "Dw'", "Dw2",
+    "L", "L'", "L2", "Lw", "Lw'", "Lw2", 
+    "B", "B'", "B2", "Bw", "Bw'", "Bw2"
 ]
 
 EO_MOVESET = [ # 14 moves total
