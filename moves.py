@@ -239,7 +239,7 @@ def x_rotation(old_state):
     new_state[27:36] = [
         b_face[8], b_face[7], b_face[6],
         b_face[5], b_face[4], b_face[3],
-        b_face[0], b_face[1], b_face[2]
+        b_face[2], b_face[1], b_face[0]
     ]
 
     # set B to U
@@ -247,7 +247,7 @@ def x_rotation(old_state):
     new_state[45:54] = [
         u_face[8], u_face[7], u_face[6],
         u_face[5], u_face[4], u_face[3],
-        u_face[0], u_face[1], u_face[2]
+        u_face[2], u_face[1], u_face[0]
     ]
     
     # set U to F
@@ -300,8 +300,6 @@ def y_rotation(old_state):
 
 def z_rotation(old_state):
     new_state = old_state.copy()
-
-    temp_face = old_state[0:9] # set temp to U
 
     # set U to L
     l_face = old_state[36:45]
