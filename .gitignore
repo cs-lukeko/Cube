@@ -4,3 +4,4 @@ look_up_tables/*.pkl
 Notes.txt
 .env
 benchmark_tests/
+dummy_test.py
