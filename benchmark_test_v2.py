@@ -1,3 +1,5 @@
+# AI Disclaimer: Claude Code was used to generate this entire file. I chose to do this to save time as I know I am capable, as seen in the more rudimentary and original "benchmark_test.py" file.
+
 import json
 import os
 from cube import Cube
@@ -20,11 +22,27 @@ RESULTS_FILE = "benchmark_tests/benchmark_test_results.json"
 
 
 def load_results() -> dict:
-    """Read existing results from file. Returns empty dict if file doesn't exist."""
+    """Read existing results from file.
+
+    Returns an empty dict if the file doesn't exist, is empty,
+    or contains invalid JSON.
+    """
     if not os.path.exists(RESULTS_FILE):
         return {}
-    with open(RESULTS_FILE, "r") as file:
-        return json.load(file)
+
+    try:
+        with open(RESULTS_FILE, "r") as file:
+            contents = file.read().strip()
+
+            # Empty file
+            if not contents:
+                return {}
+
+            return json.loads(contents)
+
+    except (json.JSONDecodeError, OSError):
+        # Invalid JSON or file couldn't be read
+        return {}
 
 
 def save_results(results: dict):
@@ -142,8 +160,4 @@ def update_results_txt_file():
 
 
 # run tests (solver_version, scramble_length)
-# run_benchmark_test_ao5(1, 5)
-# run_benchmark_test_ao5(2, 5)
-# run_benchmark_test_ao5(3, 11)
-# run_benchmark_test_ao5(4, 20)
 run_benchmark_test_ao5(5, 20)
