@@ -45,6 +45,7 @@ def depth_first_search(cube, depth_remaining, moves_so_far, database, moveset):
 
         depth_first_search(next_cube, depth_remaining - 1, moves_so_far + [move], database, moveset)
 
-n = 6
-for i in range(3, n + 1):
-    generate_look_up_table_to_solved(i, FULL_MOVESET)
+lower = 7
+upper = 7
+for i in range(lower, upper + 1):
+    generate_look_up_table_to_solved(i, DR_MOVESET)
