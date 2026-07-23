@@ -40,3 +40,8 @@ class Solver(ABC):
                 print()
                 solution_remaining = solution_remaining[1:]
                 next_time += interval
+
+    @abstractmethod
+    def reconstruction(self):
+        print("Reconstruction: ", end="")
+        pass

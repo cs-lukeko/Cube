@@ -41,9 +41,10 @@ def main():
     solver.animate(scrambled_cube)
 
     # final solution stats
-    print(f"Solver: {solver.name}")
+    print(f"Solver: {solver.name}\n")
     print(f"Scramble: {" ".join(scramble)}")
     print(f"Solution ({len(solution)} moves): {" ".join(solution)}")
     solver.print_solve_statistics(attempts, time)
+    solver.reconstruction()
 
 main()

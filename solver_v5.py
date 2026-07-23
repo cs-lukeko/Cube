@@ -12,6 +12,10 @@ from time import perf_counter
 # DR using RU_MOVESET
 # Solved using DR_MOVESET
 class SolverV5(Solver):
+    eo_solution = []
+    bldr_solution = []
+    dr_solution = []
+    end_solution = []
 
     @property
     def name(self):
@@ -35,6 +39,7 @@ class SolverV5(Solver):
             result = self._depth_first_search(self.cube.copy(), depth, [], FULL_MOVESET, self._eo_solved)
             if result is not None:
                 eo_solution = result
+                self.eo_solution = eo_solution
                 break
         eo_cube = self.cube.copy()
         eo_cube.apply_moves(eo_solution)
@@ -48,6 +53,7 @@ class SolverV5(Solver):
             result = self._depth_first_search(eo_cube.copy(), depth, [], EO_MOVESET, self._bldr_solved)
             if result is not None:
                 bldr_solution = result
+                self.bldr_solution = bldr_solution
                 break
         bldr_cube = eo_cube.copy()
         bldr_cube.apply_moves(bldr_solution)
@@ -61,6 +67,7 @@ class SolverV5(Solver):
             result = self._depth_first_search(bldr_cube.copy(), depth, [], RU_MOVESET, self._dr_solved)
             if result is not None:
                 dr_solution = result
+                self.dr_solution = dr_solution
                 break
         dr_cube = bldr_cube.copy()
         dr_cube.apply_moves(dr_solution)
@@ -75,6 +82,7 @@ class SolverV5(Solver):
             result = self._depth_first_search(dr_cube.copy(), depth, [], DR_MOVESET, self._end_solved, solved_database)
             if result is not None:
                 end_solution = self._end_result
+                self.end_solution = end_solution
                 break
         print(f"Solution found - {(perf_counter() - start_time):.1f}s - {" ".join(end_solution)}\n")
 
@@ -160,3 +168,11 @@ class SolverV5(Solver):
             else:
                 tidy_solution.append(self.solution[i])
         self.solution = tidy_solution
+
+    def reconstruction(self):
+        super().reconstruction()
+        print(f"({len(self.solution)} moves)\n")
+        print(f"EO:    {" ".join(self.eo_solution)} ({len(self.eo_solution)} moves)")
+        print(f"BLDR:  {" ".join(self.bldr_solution)} ({len(self.bldr_solution)} moves)")
+        print(f"DR:    {" ".join(self.dr_solution)} ({len(self.dr_solution)} moves)")
+        print(f"End:   {" ".join(self.end_solution)} ({len(self.end_solution)} moves)")
